@@ -1,8 +1,12 @@
 import 'package:aqua_lens/core/app_theme.dart';
 import 'package:aqua_lens/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle.dark.copyWith(),
+  );
   runApp(const MainApp());
 }
 

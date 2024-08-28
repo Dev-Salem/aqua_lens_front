@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
   // Theme config for FlexColorScheme version 7.3.x. Make sure you use
@@ -17,9 +18,9 @@ class AppTheme {
           blendOnColors: false,
           useTextTheme: true,
           useM2StyleDividerInM3: true,
-          filledButtonRadius: 5.0,
-          elevatedButtonRadius: 5.0,
-          outlinedButtonRadius: 5.0,
+          // filledButtonRadius: 5.0,
+          // elevatedButtonRadius: 5.0,
+          // outlinedButtonRadius: 5.0,
           alignedDropdown: true,
           useInputDecoratorThemeInDialogs: true,
         ),
@@ -32,9 +33,9 @@ class AppTheme {
         useMaterial3: true,
         swapLegacyOnMaterial3: true,
         // To use the Playground font, add GoogleFonts package and uncomment
-        // fontFamily: GoogleFonts.notoSans().fontFamily,
+        fontFamily: GoogleFonts.poppins().fontFamily,
       );
- static ThemeData dark() =>FlexThemeData.dark(
+  static ThemeData dark() => FlexThemeData.dark(
         scheme: FlexScheme.blue,
         surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
         blendLevel: 13,
