@@ -42,7 +42,7 @@ class WhyPage extends StatelessWidget {
               tiles: [
                 const ListTile(
                   title: Text(
-                    "Time-consuming:",
+                    "Fast Result",
                     style: TextStyle(color: Colors.white),
                   ),
                   subtitle: Text(
@@ -55,7 +55,7 @@ class WhyPage extends StatelessWidget {
                 ),
                 const ListTile(
                   title: Text(
-                    "Costly",
+                    "Cost-effective",
                     style: TextStyle(color: Colors.white),
                   ),
                   subtitle: Text(

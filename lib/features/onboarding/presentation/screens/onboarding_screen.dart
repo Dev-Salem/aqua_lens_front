@@ -1,8 +1,10 @@
 import 'dart:ui';
 
+import 'package:aqua_lens/features/onboarding/presentation/widgets/how_page.dart';
 import 'package:aqua_lens/features/onboarding/presentation/widgets/start_page.dart';
 import 'package:aqua_lens/features/onboarding/presentation/widgets/what_page.dart';
 import 'package:aqua_lens/features/onboarding/presentation/widgets/why_page.dart';
+import 'package:aqua_lens/features/scan/presentation/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -55,7 +57,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             WhatPage(
               onNext: () => _pageController.jumpToPage(2),
             ),
-            WhyPage(onNext: () => _pageController.jumpToPage(0))
+            WhyPage(onNext: () => _pageController.jumpToPage(3)),
+            HowPage(onNext: () {
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => const HomePage()));
+            })
           ],
         )
       ],

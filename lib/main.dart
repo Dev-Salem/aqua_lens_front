@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle.dark.copyWith(),
+    SystemUiOverlayStyle.light.copyWith(),
   );
   runApp(const MainApp());
 }

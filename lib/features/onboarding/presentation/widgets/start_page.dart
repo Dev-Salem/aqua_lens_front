@@ -21,7 +21,7 @@ class StartPage extends StatelessWidget {
             height: 50,
           ),
           Text(
-            "Aqua Lens",
+            "AquaLens",
             style: GoogleFonts.manrope(
                 color: Colors.white60,
                 fontWeight: FontWeight.bold,
@@ -43,7 +43,7 @@ class StartPage extends StatelessWidget {
                   delay: 1500.ms,
                   curve: Curves.easeInOut),
           const SizedBox(
-            height: 10,
+            height: 12,
           ),
           SizedBox(
             width: double.infinity,
