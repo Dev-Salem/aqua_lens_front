@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 const definition =
     "Microplastics are tiny plastic particles, less than 5mm in size, that pollute our water sources. They come from the breakdown of larger plastics and everyday products.";

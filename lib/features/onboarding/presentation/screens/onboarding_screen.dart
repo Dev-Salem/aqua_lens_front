@@ -59,7 +59,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
             WhyPage(onNext: () => _pageController.jumpToPage(3)),
             HowPage(onNext: () {
-              Navigator.of(context).pushReplacement(
+              Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const HomePage()));
             })
           ],
