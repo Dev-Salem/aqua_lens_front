@@ -32,7 +32,7 @@ class StartPage extends StatelessWidget {
               delay: 500.ms,
               curve: Curves.easeInOut),
           const Spacer(),
-          Text('Detect Microplastics In Water\n With A Few Taps',
+          Text("A clearer future, one image at a time.",
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       color: Colors.white, fontWeight: FontWeight.w400))
@@ -40,7 +40,7 @@ class StartPage extends StatelessWidget {
               .fadeIn(
                   begin: 0,
                   duration: 1.seconds,
-                  delay: 1200.ms,
+                  delay: 1500.ms,
                   curve: Curves.easeInOut),
           const SizedBox(
             height: 10,
@@ -61,7 +61,7 @@ class StartPage extends StatelessWidget {
                 .fadeIn(
                     begin: 0,
                     duration: 1.seconds,
-                    delay: 1900.ms,
+                    delay: 2500.ms,
                     curve: Curves.easeInOut),
           ),
           const SizedBox(

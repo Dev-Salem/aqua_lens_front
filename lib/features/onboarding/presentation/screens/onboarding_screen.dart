@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:aqua_lens/features/onboarding/presentation/widgets/start_page.dart';
 import 'package:aqua_lens/features/onboarding/presentation/widgets/what_page.dart';
+import 'package:aqua_lens/features/onboarding/presentation/widgets/why_page.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -19,12 +20,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   void initState() {
     _pageController = PageController();
     _videoPlayerController = VideoPlayerController.asset(
-      'assets/jellyfish.mp4',
+      'assets/jellyfish2.mp4',
     )
       ..initialize().then((_) {
         setState(() {});
       })
-      ..setPlaybackSpeed(0.4)
       ..play()
       ..setLooping(true);
     super.initState();
@@ -44,19 +44,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       children: [
         Positioned.fill(
             child: ImageFiltered(
-                imageFilter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
+                imageFilter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
                 child: VideoPlayer(_videoPlayerController))),
         PageView(
           controller: _pageController,
           children: [
             StartPage(
-              onNext: () => _pageController.nextPage(
-                  duration: Durations.short4, curve: Curves.easeInOut),
+              onNext: () => _pageController.jumpToPage(1),
             ),
             WhatPage(
-              onNext: () => _pageController.nextPage(
-                  duration: Durations.short4, curve: Curves.easeInOut),
-            )
+              onNext: () => _pageController.jumpToPage(2),
+            ),
+            WhyPage(onNext: () => _pageController.jumpToPage(0))
           ],
         )
       ],
