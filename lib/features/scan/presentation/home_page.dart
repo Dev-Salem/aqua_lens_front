@@ -15,14 +15,15 @@ class HomePage extends ConsumerWidget {
       sensorConfig: SensorConfig.single(
           sensor: Sensor.position(SensorPosition.back),
           flashMode: FlashMode.none),
-      saveConfig: SaveConfig.video(
-          videoOptions: VideoOptions(
-              enableAudio: false, quality: VideoRecordingQuality.highest)),
+      saveConfig: SaveConfig.photo(),
+      onMediaTap: (mediaCapture) {
+        print(mediaCapture.status);
+      },
       onMediaCaptureEvent: (p0) {
         if (p0.status == MediaCaptureStatus.success &&
-            p0.isVideo &&
+            p0.isPicture &&
             p0.captureRequest.path != null) {
-          ref.read(getDetectionResultProvider.call(p0.captureRequest.path!));
+          // ref.read(getDetectionResultProvider.call(p0.captureRequest.path!));
         }
       },
     ));

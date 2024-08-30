@@ -49,6 +49,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 imageFilter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
                 child: VideoPlayer(_videoPlayerController))),
         PageView(
+          physics: const NeverScrollableScrollPhysics(),
           controller: _pageController,
           children: [
             StartPage(
