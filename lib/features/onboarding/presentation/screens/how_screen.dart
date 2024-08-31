@@ -1,4 +1,4 @@
-import 'package:aqua_lens/features/onboarding/presentation/screens/home_screen.dart';
+import 'package:aqua_lens/features/scan/presentation/screens/home_screen.dart';
 import 'package:aqua_lens/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -62,7 +62,7 @@ class HowScreen extends StatelessWidget {
                     begin: 0,
                     end: 1,
                     duration: 900.ms,
-                    curve: Curves.easeInOut,
+                    curve: Curves.fastEaseInToSlowEaseOut,
                     delay: (400 * index).ms);
               }),
               const Spacer(),

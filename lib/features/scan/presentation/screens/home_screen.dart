@@ -1,4 +1,5 @@
-import 'package:aqua_lens/features/onboarding/presentation/widgets/camera_widget.dart';
+import 'package:aqua_lens/features/scan/presentation/screens/camera_widget.dart';
+import 'package:aqua_lens/features/scan/presentation/widgets/home_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,21 +22,12 @@ class _HomeScreenState extends State<HomeScreen> {
           });
         },
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.timeline), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.timeline), label: "History"),
           BottomNavigationBarItem(
               icon: Icon(Icons.center_focus_strong), label: 'Scan')
         ],
       ),
       body: selectedIndex == 0 ? const HomeWidget() : const CameraWidget(),
     );
-  }
-}
-
-class HomeWidget extends StatelessWidget {
-  const HomeWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Column();
   }
 }

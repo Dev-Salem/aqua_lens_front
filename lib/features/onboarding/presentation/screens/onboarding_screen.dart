@@ -42,7 +42,7 @@ import 'package:google_fonts/google_fonts.dart';
 //                 .scaleXY(
 //                     begin: 0,
 //                     end: 1.1,
-//                     curve: Curves.easeInOutCubic,
+//                     curve: Curves.fastEaseInToSlowEaseOutCubic,
 //                     duration: 800.ms)
 //                 .then(delay: 75.ms)
 //                 .scaleXY(begin: 1.2, end: 1),
@@ -59,7 +59,7 @@ import 'package:google_fonts/google_fonts.dart';
 //                   .scaleXY(
 //                       begin: 0,
 //                       end: 1.1,
-//                       curve: Curves.easeInOutCubic,
+//                       curve: Curves.fastEaseInToSlowEaseOutCubic,
 //                       duration: 800.ms)
 //                   .then(delay: 75.ms)
 //                   .scaleXY(begin: 1.2, end: 1)
@@ -79,7 +79,7 @@ import 'package:google_fonts/google_fonts.dart';
 //                   .scaleXY(
 //                       begin: 0,
 //                       end: 1.1,
-//                       curve: Curves.easeInOutCubic,
+//                       curve: Curves.fastEaseInToSlowEaseOutCubic,
 //                       duration: 800.ms)
 //                   .then(delay: 75.ms)
 //                   .scaleXY(begin: 1.2, end: 1))
@@ -115,17 +115,17 @@ import 'package:google_fonts/google_fonts.dart';
 //                     style: TextStyle(fontWeight: FontWeight.bold),
 //                   ))),
 //         ].animate(delay: 1500.ms, interval: 200.ms).slideY(
-//             curve: Curves.easeInOutCubic, begin: 5, end: 0, duration: 900.ms)
+//             curve: Curves.fastEaseInToSlowEaseOutCubic, begin: 5, end: 0, duration: 900.ms)
 //       ],
 //     )
 //             .animate(autoPlay: false, controller: _controller)
-//             .fadeOut(begin: 1, duration: 500.ms, curve: Curves.easeInOutBack)
+//             .fadeOut(begin: 1, duration: 500.ms, curve: Curves.fastEaseInToSlowEaseOutBack)
 //             .scaleXY(begin: 1, end: 0.5));
 //   }
 // }
 /*
 .shimmer(delay: 4000.ms, duration: 1800.ms)     // shimmer +
-  .shake(hz: 4, curve: Curves.easeInOutCubic)     // shake +
+  .shake(hz: 4, curve: Curves.fastEaseInToSlowEaseOutCubic)     // shake +
   .scale(begin: 1.0, end: 1.1, duration: 600.ms)  // scale up
   .then(delay: 600.ms)                            // then wait and
   .scale(begin: 1.0, end: 1 / 1.1) 
@@ -151,7 +151,8 @@ class OnboardingScreen extends StatelessWidget {
                         color: Colors.white,
                         fontWeight: FontWeight.bold))
                 .animate()
-                .fadeIn(duration: 1000.ms, curve: Curves.easeInOut),
+                .fadeIn(
+                    duration: 1000.ms, curve: Curves.fastEaseInToSlowEaseOut),
             const Text("Microplastics, Detected, Defeated.",
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -160,7 +161,9 @@ class OnboardingScreen extends StatelessWidget {
                         fontWeight: FontWeight.bold))
                 .animate()
                 .fadeIn(
-                    delay: 1000.ms, duration: 1000.ms, curve: Curves.easeInOut),
+                    delay: 1000.ms,
+                    duration: 1000.ms,
+                    curve: Curves.fastEaseInToSlowEaseOut),
             const SizedBox(
               height: 64,
             ),
@@ -184,12 +187,14 @@ class OnboardingScreen extends StatelessWidget {
                             .primaryColorDark
                             .withOpacity(0.6))),
                 Image.asset(
-                  'assets/recycle.png',
+                  "assets/recylce.png",
                   height: 350,
                 )
               ],
             ).animate().fadeIn(
-                delay: 1300.ms, duration: 900.ms, curve: Curves.easeInOut),
+                delay: 1500.ms,
+                duration: 1100.ms,
+                curve: Curves.fastEaseInToSlowEaseOut),
             const Spacer(),
             SizedBox(
               width: 300,
@@ -213,10 +218,10 @@ class OnboardingScreen extends StatelessWidget {
                 end: 0,
                 duration: 600.ms,
                 delay: 1800.ms,
-                curve: Curves.easeInOut),
+                curve: Curves.fastEaseInToSlowEaseOut),
             const SizedBox(
               height: 30,
-            )
+            ),
           ],
         ),
       ),
