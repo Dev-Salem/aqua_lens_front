@@ -1,3 +1,4 @@
+import 'package:aqua_lens/features/onboarding/presentation/screens/home_screen.dart';
 import 'package:aqua_lens/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -72,10 +73,11 @@ class HowScreen extends StatelessWidget {
                         backgroundColor: WidgetStatePropertyAll(
                             Theme.of(context).primaryColorDark)),
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (
+                      Navigator.of(context)
+                          .pushReplacement(MaterialPageRoute(builder: (
                         context,
                       ) {
-                        return const HowScreen();
+                        return const HomeScreen();
                       }));
                     },
                     child: const Text(
