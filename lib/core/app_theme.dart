@@ -33,7 +33,7 @@ class AppTheme {
         useMaterial3: true,
         swapLegacyOnMaterial3: true,
         // To use the Playground font, add GoogleFonts package and uncomment
-        fontFamily: GoogleFonts.poppins().fontFamily,
+        fontFamily: GoogleFonts.rubik().fontFamily,
       );
   static ThemeData dark() => FlexThemeData.dark(
         scheme: FlexScheme.blue,

@@ -1,12 +1,8 @@
-import 'dart:ui';
-
+import 'package:aqua_lens/features/onboarding/presentation/screens/how_screen.dart';
 import 'package:aqua_lens/features/onboarding/presentation/widgets/how_page.dart';
-import 'package:aqua_lens/features/onboarding/presentation/widgets/start_page.dart';
-import 'package:aqua_lens/features/onboarding/presentation/widgets/what_page.dart';
-import 'package:aqua_lens/features/onboarding/presentation/widgets/why_page.dart';
-import 'package:aqua_lens/features/scan/presentation/home_page.dart';
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -15,57 +11,123 @@ class OnboardingScreen extends StatefulWidget {
   State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen> {
-  late final VideoPlayerController _videoPlayerController;
-  late final PageController _pageController;
+class _OnboardingScreenState extends State<OnboardingScreen>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
   @override
   void initState() {
-    _pageController = PageController();
-    _videoPlayerController = VideoPlayerController.asset(
-      'assets/jellyfish2.mp4',
-    )
-      ..initialize().then((_) {
-        setState(() {});
-      })
-      ..play()
-      ..setLooping(true);
+    _controller = AnimationController(vsync: this);
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    _videoPlayerController.dispose();
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(
+      alignment: Alignment.center,
       children: [
-        Positioned.fill(
-            child: ImageFiltered(
-                imageFilter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-                child: VideoPlayer(_videoPlayerController))),
-        PageView(
-          physics: const NeverScrollableScrollPhysics(),
-          controller: _pageController,
-          children: [
-            StartPage(
-              onNext: () => _pageController.jumpToPage(1),
-            ),
-            WhatPage(
-              onNext: () => _pageController.jumpToPage(2),
-            ),
-            WhyPage(onNext: () => _pageController.jumpToPage(3)),
-            HowPage(onNext: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const HomePage()));
-            })
-          ],
-        )
+        Image.asset(
+          'assets/background.jpg',
+          height: double.infinity,
+          fit: BoxFit.fitHeight,
+        ),
+        ...[
+          Positioned(
+            right: 10,
+            child: Text(
+              "LENS",
+              style:
+                  GoogleFonts.lato(fontSize: 55, fontWeight: FontWeight.bold),
+            )
+                .animate(delay: 600.ms)
+                .scaleXY(
+                    begin: 0,
+                    end: 1.1,
+                    curve: Curves.easeInOutCubic,
+                    duration: 800.ms)
+                .then(delay: 75.ms)
+                .scaleXY(begin: 1.2, end: 1),
+          ),
+          Positioned(
+              height: 290,
+              child: Transform.rotate(
+                angle: 0.3,
+                child: Image.asset(
+                  'assets/bottle.png',
+                ),
+              )
+                  .animate(delay: 300.ms)
+                  .scaleXY(
+                      begin: 0,
+                      end: 1.1,
+                      curve: Curves.easeInOutCubic,
+                      duration: 800.ms)
+                  .then(delay: 75.ms)
+                  .scaleXY(begin: 1.2, end: 1)
+                  .then(delay: 500.ms)
+                  .shake(
+                    hz: 3,
+                  )
+                  .shimmer()),
+          Positioned(
+              left: 10,
+              child: Text(
+                "AQUA",
+                style:
+                    GoogleFonts.lato(fontSize: 55, fontWeight: FontWeight.bold),
+              )
+                  .animate()
+                  .scaleXY(
+                      begin: 0,
+                      end: 1.1,
+                      curve: Curves.easeInOutCubic,
+                      duration: 800.ms)
+                  .then(delay: 75.ms)
+                  .scaleXY(begin: 1.2, end: 1))
+        ],
+        ...[
+          const Positioned(
+              bottom: 70,
+              child: Text(
+                "Microplastics, Detected, Defeated.",
+                style: TextStyle(
+                    color: Colors.white,
+                    letterSpacing: 2,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600),
+              )),
+          Positioned(
+              bottom: 20,
+              width: 300,
+              child: FilledButton.icon(
+                  icon: const Icon(Icons.arrow_forward_sharp),
+                  onPressed: () {
+                    _controller.forward();
+                    Future.delayed(400.ms, () {
+                      Navigator.of(context).push(PageRouteBuilder(
+                          transitionDuration: 0.ms,
+                          pageBuilder: (context, _, __) {
+                            return const HowScreen();
+                          }));
+                    });
+                  },
+                  label: const Text(
+                    "Get Started",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ))),
+        ].animate(delay: 1500.ms, interval: 200.ms).slideY(
+            curve: Curves.easeInOutCubic, begin: 5, end: 0, duration: 900.ms)
       ],
-    ));
+    )
+            .animate(autoPlay: false, controller: _controller)
+            .fadeOut(begin: 1, duration: 500.ms, curve: Curves.easeInOutBack)
+            .scaleXY(begin: 1, end: 0.5));
   }
 }
+/*
+.shimmer(delay: 4000.ms, duration: 1800.ms)     // shimmer +
+  .shake(hz: 4, curve: Curves.easeInOutCubic)     // shake +
+  .scale(begin: 1.0, end: 1.1, duration: 600.ms)  // scale up
+  .then(delay: 600.ms)                            // then wait and
+  .scale(begin: 1.0, end: 1 / 1.1) 
+*/

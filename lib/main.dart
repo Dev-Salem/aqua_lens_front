@@ -18,6 +18,6 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
         theme: AppTheme.light(),
         debugShowCheckedModeBanner: false,
-        home: const OnboardingScreen());
+        home:  OnboardingScreen());
   }
 }
