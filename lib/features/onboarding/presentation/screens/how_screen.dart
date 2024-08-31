@@ -1,4 +1,6 @@
+import 'package:aqua_lens/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class HowScreen extends StatelessWidget {
   const HowScreen({super.key});
@@ -6,66 +8,87 @@ class HowScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Theme.of(context).primaryColor,
         body: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(
-            height: 80,
-          ),
-          const Text(
-            "How to use AquaLens?",
-            style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(
-            height: 80,
-          ),
-          ...List.generate(texts.length, (int index) {
-            return ListTile(
-              minVerticalPadding: 20,
-              leading: Container(
-                height: 70,
-                width: 70,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Theme.of(context).primaryColor),
-                child: Text(
-                  '${index + 1}',
-                  style: const TextStyle(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(
+                height: 80,
+              ),
+              const Text(
+                "How to use AquaLens?",
+                style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ).animate().fadeIn(duration: 300.ms),
+              const SizedBox(
+                height: 80,
+              ),
+              ...List.generate(texts.length, (int index) {
+                return ListTile(
+                  minVerticalPadding: 20,
+                  leading: Container(
+                    height: 70,
+                    width: 70,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Theme.of(context).primaryColorDark),
+                    child: Text(
+                      '${index + 1}',
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  title: Text(
+                    texts[index][0],
+                    style: const TextStyle(
+                      fontSize: 16,
                       color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                ),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  subtitle: Text(
+                    texts[index][1],
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ).animate().scaleXY(
+                    begin: 0,
+                    end: 1,
+                    duration: 900.ms,
+                    curve: Curves.easeInOut,
+                    delay: (400 * index).ms);
+              }),
+              const Spacer(),
+              SizedBox(
+                width: 300,
+                child: FilledButton(
+                    style: ButtonStyle(
+                        backgroundColor: WidgetStatePropertyAll(
+                            Theme.of(context).primaryColorDark)),
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (
+                        context,
+                      ) {
+                        return const HowScreen();
+                      }));
+                    },
+                    child: const Text(
+                      "Next",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    )),
               ),
-              title: Text(
-                texts[index][0],
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              subtitle: Text(texts[index][1]),
-            );
-          }),
-          const Spacer(),
-          SizedBox(
-            width: 300,
-            child: FilledButton.icon(
-                icon: const Icon(Icons.arrow_forward_sharp),
-                onPressed: () {},
-                label: const Text(
-                  "Next",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                )),
+              const SizedBox(
+                height: 20,
+              )
+            ],
           ),
-          const SizedBox(
-            height: 20,
-          )
-        ],
-      ),
-    ));
+        ));
   }
 }
 
@@ -76,7 +99,7 @@ final texts = [
   ],
   [
     "Take A Picture",
-    "Ensure that the microplastics are as visible as poss in your image"
+    "Ensure that the microplastics are as much visible as possible in your image"
   ],
   [
     "Let Us Do The Work",

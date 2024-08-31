@@ -10,7 +10,7 @@ class AppTheme {
 // use a lower package version, some properties may not be supported.
 // In that case remove them after copying this theme to your app.
   static ThemeData light() => FlexThemeData.light(
-        scheme: FlexScheme.blue,
+        scheme: FlexScheme.sanJuanBlue,
         surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
         blendLevel: 7,
         subThemesData: const FlexSubThemesData(
@@ -18,9 +18,9 @@ class AppTheme {
           blendOnColors: false,
           useTextTheme: true,
           useM2StyleDividerInM3: true,
-          // filledButtonRadius: 5.0,
-          // elevatedButtonRadius: 5.0,
-          // outlinedButtonRadius: 5.0,
+          filledButtonRadius: 5.0,
+          elevatedButtonRadius: 5.0,
+          outlinedButtonRadius: 5.0,
           alignedDropdown: true,
           useInputDecoratorThemeInDialogs: true,
         ),
@@ -33,7 +33,7 @@ class AppTheme {
         useMaterial3: true,
         swapLegacyOnMaterial3: true,
         // To use the Playground font, add GoogleFonts package and uncomment
-        fontFamily: GoogleFonts.rubik().fontFamily,
+        fontFamily: GoogleFonts.montserrat().fontFamily,
       );
   static ThemeData dark() => FlexThemeData.dark(
         scheme: FlexScheme.blue,
