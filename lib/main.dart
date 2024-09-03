@@ -1,4 +1,5 @@
 import 'package:aqua_lens/core/app_theme.dart';
+import 'package:aqua_lens/features/onboarding/presentation/screens/educate_screen.dart';
 import 'package:aqua_lens/features/onboarding/presentation/screens/how_screen.dart';
 import 'package:aqua_lens/features/onboarding/presentation/screens/welcome_screen.dart';
 import 'package:aqua_lens/features/scan/presentation/screens/home_screen.dart';
@@ -24,7 +25,8 @@ class MainApp extends StatelessWidget {
         routes: {
           'welcome': (context) => const WelcomeScreen(),
           'home': (context) => const HomeScreen(),
-          "how": (context) => const HowScreen()
+          "how": (context) => const HowScreen(),
+          "edu": (context) => const EducationScreen()
         },
         debugShowCheckedModeBanner: false,
         home: const WelcomeScreen());

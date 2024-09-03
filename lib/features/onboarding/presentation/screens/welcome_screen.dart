@@ -51,7 +51,7 @@ class WelcomeScreen extends StatelessWidget {
                             backgroundColor: WidgetStatePropertyAll(
                                 Color.fromRGBO(217, 217, 217, 1))),
                         onPressed: () {
-                          Navigator.pushNamed(context, 'how');
+                          Navigator.pushNamed(context, 'edu');
                         },
                         child: const Text(
                           "Get Started",

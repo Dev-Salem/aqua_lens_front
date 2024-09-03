@@ -25,15 +25,14 @@ class PreviewImageScreen extends ConsumerWidget {
         children: [
           Positioned.fill(
             child: Container(
-              height: double.infinity,
-              width: double.infinity,
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(12)),
-              child: Image.file(
-                File(imagePath),
-                fit: BoxFit.fill,
-              ),
-            ),
+                height: double.infinity,
+                width: double.infinity,
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(12)),
+                child: Image.asset(
+                  "assets/IMG_6693.png",
+                  fit: BoxFit.fill,
+                )),
           ),
           Positioned(
               bottom: 10,
@@ -85,16 +84,17 @@ class PreviewImageScreen extends ConsumerWidget {
                                 // final hasError =
                                 //     ref.watch(scanProvider).hasError;
 
-                                return SizedBox(
+                                return const SizedBox(
                                     height: 700,
                                     width: double.infinity,
                                     child: ValidDetection(
                                         result: DetectionResult(
-                                            itemCount: 31,
-                                            averageAccuracy: 77,
+                                            itemCount: 5,
+                                            averageAccuracy: 72.16,
                                             minAccuracy: 34,
                                             maxAccuracy: 89,
-                                            imagePath: imagePath)));
+                                            imagePath:
+                                                "assets/output_image.jpg")));
                               });
                         },
                         child: const Text(
@@ -154,7 +154,7 @@ class ValidDetection extends StatelessWidget {
           result: result,
           height: 460,
           width: 374,
-          fromCamera: true,
+          fromCamera: false,
         ),
         const SizedBox(
           height: 24,

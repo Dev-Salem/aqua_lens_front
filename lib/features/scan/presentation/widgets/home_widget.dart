@@ -1,5 +1,6 @@
 import 'package:aqua_lens/features/scan/domain/detection_result.dart';
 import 'package:aqua_lens/features/scan/presentation/screens/detection_card.dart';
+import 'package:aqua_lens/features/scan/presentation/widgets/boost_banner.dart';
 import 'package:flutter/material.dart';
 
 class HomeWidget extends StatelessWidget {
@@ -18,14 +19,18 @@ class HomeWidget extends StatelessWidget {
           ),
           const StatsWidget(),
           const SizedBox(
-            height: 32,
+            height: 24,
+          ),
+          const BoostBanner(),
+          const SizedBox(
+            height: 12,
           ),
           const Text(
             "   My Detections",
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           const SizedBox(
-            height: 32,
+            height: 24,
           ),
           Expanded(
             child: ListView.separated(
