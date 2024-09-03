@@ -1,5 +1,4 @@
 import 'package:aqua_lens/features/scan/presentation/screens/home_screen.dart';
-import 'package:aqua_lens/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 

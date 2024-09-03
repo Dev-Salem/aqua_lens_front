@@ -3,7 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>NSCameraUsageDescription</key>
-	<string>We Need Camera Access To Capture Microplastic</string>
+	<string>Camera permission is required for object detection.</string>
+	
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Storage permission is required for object detection.</string>
 
 	<key>NSMicrophoneUsageDescription</key>
 	<string>To enable microphone access when recording video</string>

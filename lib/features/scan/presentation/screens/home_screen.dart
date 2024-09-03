@@ -22,12 +22,12 @@ class _HomeScreenState extends State<HomeScreen> {
           });
         },
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.timeline), label: "History"),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(
               icon: Icon(Icons.center_focus_strong), label: 'Scan')
         ],
       ),
-      body: selectedIndex == 0 ? const HomeWidget() : const CameraWidget(),
+      body: selectedIndex == 0 ? const HomeWidget() : const CameraPage(),
     );
   }
 }
