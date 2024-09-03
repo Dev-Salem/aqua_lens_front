@@ -4,10 +4,10 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 class DetectionResult extends Equatable {
-  final int itemCount;
-  final double averageAccuracy;
-  final double minAccuracy;
-  final double maxAccuracy;
+  final num itemCount;
+  final num averageAccuracy;
+  final num minAccuracy;
+  final num maxAccuracy;
   final String imagePath;
   const DetectionResult({
     required this.itemCount,
@@ -44,12 +44,22 @@ class DetectionResult extends Equatable {
   }
 
   factory DetectionResult.fromMap(Map<String, dynamic> map) {
+    var fullPath = (map['image_path'] as String).split('/');
+    final newStringPath =
+        (map['image_path'] as String).replaceFirst('media', 'assets');
+    print(newStringPath);
+    final newPath = fullPath.map((e) {
+      if (e == 'media') {
+        return 'assets';
+      }
+      return e;
+    });
     return DetectionResult(
-      itemCount: map['count'] as int,
-      averageAccuracy: map['average'] as double,
-      minAccuracy: map['min'] as double,
-      maxAccuracy: map['max'] as double,
-      imagePath: map['image_path'] as String,
+      itemCount: map['count'] as num,
+      averageAccuracy: map['average'],
+      minAccuracy: map['min'] as num,
+      maxAccuracy: map['max'] as num,
+      imagePath: newStringPath,
     );
   }
 

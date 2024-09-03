@@ -56,6 +56,18 @@ class PreviewImageScreen extends ConsumerWidget {
                               ? const CircularProgressIndicator()
                               : Column(
                                   children: [
+                                    Container(
+                                      height: 200,
+                                      width: 400,
+                                      clipBehavior: Clip.hardEdge,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      child: Image.asset(
+                                        detectionResult.imagePath,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
                                     Text(
                                         "Item Count:${detectionResult.itemCount} "),
                                     Text(

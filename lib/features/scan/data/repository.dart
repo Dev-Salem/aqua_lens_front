@@ -6,21 +6,15 @@ class DataRepository {
   final Dio client;
 
   DataRepository({required this.client});
-  Future<String> getHello() async {
-    final respone = await client.get("http://192.168.0.102:8000/api/scan/");
-    print("My Respone: =====$respone\n");
-    return respone.data as String;
-  }
 
   Future<DetectionResult> getDetectionResult(String filePath) async {
+    print("====================Start============================");
     final fromData = FormData.fromMap({
       'image': await MultipartFile.fromFile(filePath, filename: 'myImage.jpg')
     });
-    final test = await client.get("http://192.168.0.102:8000/api/scan/");
-    print("====================Get Result: $test============================");
-    final response = await client.post("http://192.168.0.102:8000/api/scan/",
+    final response = await client.post("http://10.185.246.113:8000/api/scan/",
         data: fromData);
-    print(response.data);
+    print("======Respone ${response.data}===========");
     return DetectionResult.fromMap(response.data as Map<String, dynamic>);
   }
 }
