@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:aqua_lens/features/scan/data/repository.dart';
 import 'package:aqua_lens/features/scan/presentation/screens/preview_image.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +13,9 @@ class CameraPageState extends State<CameraPage> with WidgetsBindingObserver {
   CameraController? _controller;
   bool _isCameraInitialized = false;
   late final List<CameraDescription> _cameras;
+  FlashMode _currentFlashMode = FlashMode.off;
+  double _currentZoomLevel = 1.0;
+  double _maxZoomLevel = 1.0;
 
   @override
   void initState() {
@@ -32,19 +32,15 @@ class CameraPageState extends State<CameraPage> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    // App state changed before we got the chance to initialize.
     final CameraController? cameraController = _controller;
 
-    // App state changed before we got the chance to initialize.
     if (cameraController == null || !cameraController.value.isInitialized) {
       return;
     }
 
     if (state == AppLifecycleState.inactive) {
-      // Free up memory when camera not active
       cameraController.dispose();
     } else if (state == AppLifecycleState.resumed) {
-      // Reinitialize the camera with same properties
       onNewCameraSelected(cameraController.description);
     }
   }
@@ -59,11 +55,10 @@ class CameraPageState extends State<CameraPage> with WidgetsBindingObserver {
   Future<XFile?> capturePhoto() async {
     final CameraController? cameraController = _controller;
     if (cameraController!.value.isTakingPicture) {
-      // A capture is already pending, do nothing.
       return null;
     }
     try {
-      await cameraController.setFlashMode(FlashMode.off);
+      await cameraController.setFlashMode(_currentFlashMode);
       XFile file = await cameraController.takePicture();
       return file;
     } on CameraException catch (e) {
@@ -88,33 +83,71 @@ class CameraPageState extends State<CameraPage> with WidgetsBindingObserver {
     }
   }
 
+  void _onFlashModeButtonPressed() {
+    setState(() {
+      _currentFlashMode = _currentFlashMode == FlashMode.off
+          ? FlashMode.auto
+          : _currentFlashMode == FlashMode.auto
+              ? FlashMode.always
+              : FlashMode.off;
+    });
+    _controller?.setFlashMode(_currentFlashMode);
+  }
+
+  void _onZoomLevelChanged(double zoomLevel) {
+    setState(() {
+      _currentZoomLevel = zoomLevel;
+    });
+    _controller?.setZoomLevel(zoomLevel);
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_isCameraInitialized) {
       return SafeArea(
         child: Scaffold(
-          body: Column(
+          body: Stack(
+            alignment: Alignment.bottomCenter,
             children: [
               CameraPreview(_controller!),
-              // const SizedBox(
-              //   height: 35,
-              // ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: _onTakePhotoPressed,
-                    style: ElevatedButton.styleFrom(
-                        fixedSize: const Size(70, 70),
-                        shape: const CircleBorder(),
-                        backgroundColor: Colors.white),
-                    child: const Icon(
-                      Icons.camera_alt,
-                      color: Colors.black,
-                      size: 30,
-                    ),
+              Positioned(
+                top: 16,
+                right: 16,
+                child: IconButton(
+                  icon: Icon(
+                    _currentFlashMode == FlashMode.off
+                        ? Icons.flash_off
+                        : _currentFlashMode == FlashMode.auto
+                            ? Icons.flash_auto
+                            : Icons.flash_on,
+                    color: Colors.white,
+                    size: 30,
                   ),
-                ],
+                  onPressed: _onFlashModeButtonPressed,
+                ),
+              ),
+              Positioned(
+                bottom: 100,
+                left: 0,
+                right: 0,
+                child: Slider(
+                  value: _currentZoomLevel,
+                  min: 1.0,
+                  max: _maxZoomLevel,
+                  onChanged: _onZoomLevelChanged,
+                  activeColor: Colors.white,
+                ),
+              ),
+              Positioned(
+                bottom: 5,
+                child: IconButton(
+                  onPressed: _onTakePhotoPressed,
+                  icon: const Icon(
+                    Icons.camera,
+                    color: Colors.white,
+                    size: 50,
+                  ),
+                ),
               ),
             ],
           ),
@@ -130,81 +163,30 @@ class CameraPageState extends State<CameraPage> with WidgetsBindingObserver {
   Future<void> onNewCameraSelected(CameraDescription description) async {
     final previousCameraController = _controller;
 
-    // Instantiating the camera controller
     final CameraController cameraController = CameraController(
       description,
       ResolutionPreset.high,
       imageFormatGroup: ImageFormatGroup.jpeg,
     );
 
-    // Initialize controller
     try {
       await cameraController.initialize();
+      _maxZoomLevel = await cameraController.getMaxZoomLevel();
     } on CameraException catch (e) {
       debugPrint('Error initializing camera: $e');
     }
-    // Dispose the previous controller
+
     await previousCameraController?.dispose();
 
-    // Replace with the new controller
     if (mounted) {
       setState(() {
         _controller = cameraController;
-      });
-    }
-
-    // Update UI if controller updated
-    cameraController.addListener(() {
-      if (mounted) setState(() {});
-    });
-
-    // Update the Boolean
-    if (mounted) {
-      setState(() {
         _isCameraInitialized = _controller!.value.isInitialized;
       });
     }
+
+    cameraController.addListener(() {
+      if (mounted) setState(() {});
+    });
   }
 }
-
-// class PreviewPage extends StatefulWidget {
-//   final String imagePath;
-
-//   const PreviewPage({
-//     super.key,
-//     required this.imagePath,
-//   });
-
-//   @override
-//   State<PreviewPage> createState() => _PreviewPageState();
-// }
-
-// class _PreviewPageState extends State<PreviewPage> {
-//   @override
-//   void initState() {
-//     super.initState();
-//   }
-
-//   @override
-//   void dispose() {
-//     super.dispose();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-//       floatingActionButton: FloatingActionButton(
-//         onPressed: () async {
-//           getDetectionResultProvider.call(widget.imagePath);
-//         },
-//         child: const Icon(Icons.analytics),
-//       ),
-//       body: Center(
-//           child: Image.file(
-//         File(widget.imagePath),
-//         fit: BoxFit.cover,
-//       )),
-//     );
-//   }
-// }

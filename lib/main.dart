@@ -1,5 +1,7 @@
 import 'package:aqua_lens/core/app_theme.dart';
-import 'package:aqua_lens/features/onboarding/presentation/screens/onboarding_screen.dart';
+import 'package:aqua_lens/features/onboarding/presentation/screens/how_screen.dart';
+import 'package:aqua_lens/features/onboarding/presentation/screens/welcome_screen.dart';
+import 'package:aqua_lens/features/scan/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,7 +21,12 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: AppTheme.light(),
+        routes: {
+          'welcome': (context) => const WelcomeScreen(),
+          'home': (context) => const HomeScreen(),
+          "how": (context) => const HowScreen()
+        },
         debugShowCheckedModeBanner: false,
-        home: const OnboardingScreen());
+        home: const WelcomeScreen());
   }
 }

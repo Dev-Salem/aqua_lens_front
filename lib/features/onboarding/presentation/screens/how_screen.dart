@@ -8,8 +8,23 @@ class HowScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Theme.of(context).primaryColor,
-        body: Padding(
+        body: Stack(
+      children: [
+        Positioned.fill(
+          child: Container(
+            height: double.infinity,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                  Color.fromRGBO(1, 114, 178, 1),
+                  Color.fromRGBO(0, 22, 69, 1)
+                ])),
+          ),
+        ),
+        Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -34,13 +49,14 @@ class HowScreen extends StatelessWidget {
                     height: 70,
                     width: 70,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Theme.of(context).primaryColorDark),
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white,
+                    ),
                     child: Text(
                       '${index + 1}',
-                      style: const TextStyle(
-                          color: Colors.white,
+                      style: TextStyle(
+                          color: Theme.of(context).primaryColor,
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
                     ),
@@ -69,8 +85,10 @@ class HowScreen extends StatelessWidget {
                 width: 300,
                 child: FilledButton(
                     style: ButtonStyle(
-                        backgroundColor: WidgetStatePropertyAll(
-                            Theme.of(context).primaryColorDark)),
+                        foregroundColor: WidgetStatePropertyAll(
+                            Theme.of(context).primaryColor),
+                        backgroundColor:
+                            const WidgetStatePropertyAll(Colors.white)),
                     onPressed: () {
                       Navigator.of(context)
                           .pushReplacement(MaterialPageRoute(builder: (
@@ -85,11 +103,13 @@ class HowScreen extends StatelessWidget {
                     )),
               ),
               const SizedBox(
-                height: 20,
+                height: 32,
               )
             ],
           ),
-        ));
+        ),
+      ],
+    ));
   }
 }
 
@@ -107,79 +127,3 @@ final texts = [
     'Our state-of-the-art model will detect and quantify all the microplastics',
   ]
 ];
-
-  // ListTile(
-  //           title: const Text("Prepare Your Environment"),
-  //           subtitle: Text(
-  //             'Make sure you have enough light, and you are close enough to the object ',
-  //             style: Theme.of(context).textTheme.labelSmall,
-  //           ),
-  //           leading: Container(
-  //             height: 70,
-  //             width: 70,
-  //             alignment: Alignment.center,
-  //             decoration: BoxDecoration(
-  //                 shape: BoxShape.circle,
-  //                 color: Theme.of(context).primaryColor),
-  //             child: const Text(
-  //               '1',
-  //               style: TextStyle(
-  //                   color: Colors.white,
-  //                   fontSize: 20,
-  //                   fontWeight: FontWeight.bold),
-  //             ),
-  //           ),
-  //         ),
-  //         const SizedBox(
-  //           height: 30,
-  //         ),
-  //         ListTile(
-  //           title: const Text("Take A Picture"),
-  //           subtitle: Text(
-  //             'Ensure that the microplastics are as visible as poss in your image',
-  //             style: Theme.of(context).textTheme.labelSmall,
-  //           ),
-  //           trailing: Container(
-  //             height: 70,
-  //             width: 70,
-  //             alignment: Alignment.center,
-  //             decoration: BoxDecoration(
-  //                 shape: BoxShape.circle,
-  //                 color: Theme.of(context).primaryColor),
-  //             child: const Text(
-  //               '2',
-  //               style: TextStyle(
-  //                   color: Colors.white,
-  //                   fontSize: 20,
-  //                   fontWeight: FontWeight.bold),
-  //             ),
-  //           ),
-  //         ),
-  //         const SizedBox(
-  //           height: 30,
-  //         ),
-  //         ListTile(
-  //           title: Text(
-             
-  //             style: Theme.of(context).textTheme.titleLarge,
-  //           ),
-  //           subtitle: Text(
-
-  //             style: Theme.of(context).textTheme.labelSmall,
-  //           ),
-  //           leading: Container(
-  //             height: 70,
-  //             width: 70,
-  //             alignment: Alignment.center,
-  //             decoration: BoxDecoration(
-  //                 shape: BoxShape.circle,
-  //                 color: Theme.of(context).primaryColor),
-  //             child: const Text(
-  //               '3',
-  //               style: TextStyle(
-  //                   color: Colors.white,
-  //                   fontSize: 20,
-  //                   fontWeight: FontWeight.bold),
-  //             ),
-  //           ),
-  //         ),
