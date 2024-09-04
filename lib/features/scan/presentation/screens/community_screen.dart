@@ -1,3 +1,6 @@
+import 'package:aqua_lens/features/scan/domain/detection_result.dart';
+import 'package:aqua_lens/features/scan/domain/post.dart';
+import 'package:aqua_lens/features/scan/presentation/widgets/upgrade_banner.dart';
 import 'package:flutter/material.dart';
 
 class CommunityScreen extends StatelessWidget {
@@ -13,6 +16,7 @@ class CommunityScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 12),
         child: ListView(
           children: [
+            const UpgradeBanner(),
             const SizedBox(
               height: 32,
             ),
@@ -26,11 +30,11 @@ class CommunityScreen extends StatelessWidget {
             SizedBox(
               height: 120,
               child: ListView.builder(
-                itemCount: 5,
+                itemCount: 3,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   return WaterBrandCard(
-                      brandName: "Aqua Water", rating: index.toDouble());
+                      brandName: "Aqua Water", rating: index + 3.0);
                 },
               ),
             ),
@@ -38,14 +42,12 @@ class CommunityScreen extends StatelessWidget {
               height: 32,
             ),
             ListView.builder(
-              itemCount: 10,
+              itemCount: myPosts.length,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 return SocialMediaPostCard(
-                  userName: 'userName$index',
-                  postName: 'What a surprise',
-                  isLiked: false,
+                  post: myPosts[index],
                 );
               },
             ),
@@ -119,16 +121,8 @@ class WaterBrandCard extends StatelessWidget {
 }
 
 class SocialMediaPostCard extends StatefulWidget {
-  final String userName;
-  final String postName;
-  final bool isLiked;
-
-  const SocialMediaPostCard({
-    super.key,
-    required this.userName,
-    required this.postName,
-    required this.isLiked,
-  });
+  final Post post;
+  const SocialMediaPostCard({super.key, required this.post});
 
   @override
   _SocialMediaPostCardState createState() => _SocialMediaPostCardState();
@@ -140,7 +134,7 @@ class _SocialMediaPostCardState extends State<SocialMediaPostCard> {
   @override
   void initState() {
     super.initState();
-    _isLiked = widget.isLiked;
+    _isLiked = widget.post.isLiked;
   }
 
   @override
@@ -158,17 +152,12 @@ class _SocialMediaPostCardState extends State<SocialMediaPostCard> {
             child: Row(
               children: [
                 CircleAvatar(
-                  backgroundColor: Colors.grey.shade300,
+                  backgroundImage: NetworkImage(widget.post.userAvatarUrl),
                   radius: 20.0,
-                  child: const Icon(
-                    Icons.person,
-                    color: Colors.white,
-                    size: 24.0,
-                  ),
                 ),
                 const SizedBox(width: 10.0),
                 Text(
-                  widget.userName,
+                  widget.post.userName,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16.0,
@@ -183,15 +172,11 @@ class _SocialMediaPostCardState extends State<SocialMediaPostCard> {
                 _isLiked = !_isLiked;
               });
             },
-            child: Container(
-              color: Colors.grey.shade300,
+            child: Image.network(
+              widget.post.postImageUrl,
+              fit: BoxFit.cover,
               width: double.infinity,
               height: 200.0,
-              child: Icon(
-                Icons.image,
-                color: Colors.grey.shade600,
-                size: 100.0,
-              ),
             ),
           ),
           Padding(
@@ -199,10 +184,15 @@ class _SocialMediaPostCardState extends State<SocialMediaPostCard> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  widget.postName,
-                  style: const TextStyle(
-                    fontSize: 14.0,
+                Expanded(
+                  child: Text(
+                    widget.post.postName,
+                    softWrap: true,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 14.0,
+                    ),
                   ),
                 ),
                 IconButton(
@@ -224,3 +214,30 @@ class _SocialMediaPostCardState extends State<SocialMediaPostCard> {
     );
   }
 }
+
+const detectionResult = DetectionResult(
+    itemCount: 0,
+    averageAccuracy: 0,
+    minAccuracy: 0,
+    maxAccuracy: 0,
+    imagePath: '');
+final myPosts = [
+  const Post(
+      userName: 'david1',
+      userAvatarUrl:
+          "https://www.popsci.com/wp-content/uploads/2020/01/07/WMD5M52LJFBEBIHNEEABHVB6LA.jpg",
+      postImageUrl:
+          "https://static.scientificamerican.com/sciam/cache/file/B7B4EC45-7FAF-4A26-B4AE872ABC0DD2CF_source.jpg?w=1200",
+      postName: "Look what I found in my fish",
+      isLiked: true,
+      detectionResult: detectionResult),
+  const Post(
+      userName: 'sarah13',
+      userAvatarUrl:
+          "https://ih1.redbubble.net/image.1765102240.0417/raf,360x360,075,t,fafafa:ca443f4786.u1.jpg",
+      postImageUrl:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqkhTo9oVa1N2nBq7HRJzndtcMRYlY5WIdCQ&s",
+      postName: "this lake in Madrid doesn't look good, be careful",
+      isLiked: true,
+      detectionResult: detectionResult),
+];
